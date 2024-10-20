@@ -54,7 +54,7 @@ class EventoController extends Controller
     
         // Recuperar todos los eventos y mostrarlos en la vista index
         $eventos = DB::table('eventos')->get(); // Ajuste para obtener la tabla 'eventos'
-        return view('eventos.index', ['eventos' => $eventos]); // Cambia la vista a 'eventos.index'
+        return redirect()->route('eventos.index')->with('success', 'Evento creado con éxito.'); // Cambia la vista a 'eventos.index'
     }
     
 
@@ -85,8 +85,16 @@ class EventoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
+
     {
-        //
+        $eventos = Evento::find($id);
+        $eventos->delete();
+        
+        $eventos = DB::table('eventos')->select('id', 'nombre', 'descripcion', 'fecha', 'ubicacion', 'tipo')->get();
+        return view('eventos.index', ['eventos' => $eventos]);
     }
+    
+
+    
 }

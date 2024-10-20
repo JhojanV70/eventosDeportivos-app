@@ -13,6 +13,7 @@
   <body>
     <div class="container">
       <h1>Listado de eventos</h1>
+      <a href="{{ route('eventos.create') }}" class="btn btn-success">Add Event</a>
     <table class="table">
    <thead>
      <tr>

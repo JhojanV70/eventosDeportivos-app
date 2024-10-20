@@ -25,16 +25,38 @@ class EventoController extends Controller
      */
     public function create()
     {
-       //
+          
+        return view('eventos.new');
     }
-
+    
     /**
-     * Store a newly created resource in storage.
+     * Almacena un evento en la base de datos.
      */
     public function store(Request $request)
     {
-        //
+        // Validación para asegurarse de que el tipo sea válido
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'fecha' => 'required|date',
+            'ubicacion' => 'required|string|max:255',
+            'tipo' => 'required|in:torneo,partido amistoso,maratón', // Tipos válidos
+        ]);
+    
+        // Creación del evento
+        $evento = new Evento();
+        $evento->nombre = $request->nombre;
+        $evento->descripcion = $request->descripcion;
+        $evento->fecha = $request->fecha;
+        $evento->ubicacion = $request->ubicacion;
+        $evento->tipo = $request->tipo;
+        $evento->save();
+    
+        // Recuperar todos los eventos y mostrarlos en la vista index
+        $eventos = DB::table('eventos')->get(); // Ajuste para obtener la tabla 'eventos'
+        return view('eventos.index', ['eventos' => $eventos]); // Cambia la vista a 'eventos.index'
     }
+    
 
     /**
      * Display the specified resource.

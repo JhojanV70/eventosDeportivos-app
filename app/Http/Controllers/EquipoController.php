@@ -51,18 +51,38 @@ class EquipoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $equipo = Equipo::find($id);
+
+        if (!$equipo) {
+            return redirect()->route('equipos.index')->with('error', 'Equipo no encontrado.');
+        }
+
+        return view('equipos.edit', ['equipo' => $equipo]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'deporte' => 'required|string|max:255',
+            'entrenador' => 'required|string|max:255',
+        ]);
+
+        $equipo = Equipo::find($id);
+        $equipo->nombre = $request->nombre;
+        $equipo->deporte = $request->deporte;
+        $equipo->entrenador = $request->entrenador;
+        $equipo->save();
+
+        return redirect()->route('equipos.index')->with('success', 'Equipo actualizado con éxito.');
     }
+
 
     /**
      * Remove the specified resource from storage.

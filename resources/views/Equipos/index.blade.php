@@ -29,6 +29,7 @@
               <td>{{ $equipo->deporte }}</td>
               <td>{{ $equipo->entrenador }}</td>
               <td>
+              <a href="{{ route('equipos.edit', $equipo->id) }}" class="btn btn-warning btn-sm">Editar</a>
               <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST" style="display:inline-block;">
                   @csrf
                   @method('DELETE')

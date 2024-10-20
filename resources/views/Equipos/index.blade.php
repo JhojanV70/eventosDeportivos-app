@@ -29,7 +29,11 @@
               <td>{{ $equipo->deporte }}</td>
               <td>{{ $equipo->entrenador }}</td>
               <td>
-                
+              <form action="{{ route('equipos.destroy', $equipo->id) }}" method="POST" style="display:inline-block;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
               </td>
             </tr>
           @endforeach

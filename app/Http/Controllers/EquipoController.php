@@ -13,31 +13,32 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipos = DB::table('equipos')
-        ->select('equipos.*')
-        ->get();
+        $equipos = Equipo::all();
         return view('equipos.index', ['equipos' => $equipos]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
-        {
-            return view('equipos.new');
-        }
+    {
+        return view('equipos.new');
+    }
 
     public function store(Request $request)
-        {
-            $equipo = new Equipo();
-            $equipo->nombre = $request->nombre; // Asegúrate de que el campo en el formulario se llame 'nombre'
-            $equipo->deporte = $request->deporte; // Asegúrate de que el campo en el formulario se llame 'deporte'
-            $equipo->entrenador = $request->entrenador; // Asegúrate de que el campo en el formulario se llame 'entrenador'
-            $equipo->save();
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'deporte' => 'required|string|max:255',
+            'entrenador' => 'required|string|max:255',
+        ]);
 
-            $equipos = DB::table('equipos')->get(); // Obtener todos los equipos
-            return redirect()->route('equipos.index')->with('success', 'Equipo creado con éxito.'); // Cambia la vista a 'eventos.index'
-        }
+        $equipo = new Equipo();
+        $equipo->nombre = $request->nombre;
+        $equipo->deporte = $request->deporte;
+        $equipo->entrenador = $request->entrenador;
+        $equipo->save();
+
+        return redirect()->route('equipos.index')->with('success', 'Equipo creado con éxito.');
+    }
+
 
     /**
      * Display the specified resource.
@@ -66,8 +67,13 @@ class EquipoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $equipo = Equipo::find($id);
+        $equipo->delete();
+
+        return redirect()->route('equipos.index')->with('success', 'Equipo eliminado con éxito.');
     }
 }
+
+

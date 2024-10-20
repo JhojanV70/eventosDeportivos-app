@@ -20,3 +20,4 @@ Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('e
 Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos.index');
 Route::post('/equipos', [EquipoController::class, 'store'])->name('equipos.store');
 Route::get('/equipos/create', [EquipoController::class, 'create'])->name('equipos.create');
+Route::delete('/equipos/{evento}', [EquipoController::class, 'destroy'])->name('equipos.destroy');

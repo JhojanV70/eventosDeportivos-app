@@ -18,3 +18,5 @@ Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('e
 
 //Rutas Equipos
 Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos.index');
+Route::post('/equipos', [EquipoController::class, 'store'])->name('equipos.store');
+Route::get('/equipos/create', [EquipoController::class, 'create'])->name('equipos.create');

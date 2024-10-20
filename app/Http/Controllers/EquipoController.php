@@ -23,17 +23,21 @@ class EquipoController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+        {
+            return view('equipos.new');
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
-        //
-    }
+        {
+            $equipo = new Equipo();
+            $equipo->nombre = $request->nombre; // Asegúrate de que el campo en el formulario se llame 'nombre'
+            $equipo->deporte = $request->deporte; // Asegúrate de que el campo en el formulario se llame 'deporte'
+            $equipo->entrenador = $request->entrenador; // Asegúrate de que el campo en el formulario se llame 'entrenador'
+            $equipo->save();
+
+            $equipos = DB::table('equipos')->get(); // Obtener todos los equipos
+            return redirect()->route('equipos.index')->with('success', 'Equipo creado con éxito.'); // Cambia la vista a 'eventos.index'
+        }
 
     /**
      * Display the specified resource.

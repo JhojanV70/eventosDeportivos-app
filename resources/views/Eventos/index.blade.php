@@ -1,62 +1,50 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Event List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Listado de Eventos</title>
   </head>
   <body>
     <div class="container">
-      <h1>Listado de eventos</h1>
-      <a href="{{ route('eventos.create') }}" class="btn btn-success">Add Event</a>
+      <h1>Listado de Eventos</h1>
+      <a href="{{ route('eventos.create') }}" class="btn btn-success">Agregar Evento</a>
       
-    <table class="table">
-       <thead>
-         <tr>
-         <th scope="col">Event ID</th>
-         <th scope="col">Event Name</th>
-         <th scope="col">Description</th>
-         <th scope="col">Date</th>
-         <th scope="col">Location</th>
-         <th scope="col">Type</th>
-         <th scope="col">Actions</th>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID Evento</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Ubicación</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
           </tr>
-       </thead>
+        </thead>
         <tbody>
           @foreach ($eventos as $evento)
             <tr>
-              <th scope="row">{{$evento->id}}</th>
+              <td>{{ $evento->id }}</td>
               <td>{{ $evento->nombre }}</td>
               <td>{{ $evento->descripcion }}</td>
               <td>{{ $evento->fecha }}</td>
               <td>{{ $evento->ubicacion }}</td>
               <td>{{ $evento->tipo }}</td>
               <td>
-                
-                <a href="{{route('eventos.edit',['evento'=>$evento->id]) }}" class="btn btn-info">Edit</a>
-
-                <form action="{{route('eventos.destroy',['evento'=>$evento->id])}}"
-                      method="POST" style="display: inline-block">
-                  @method('delete')
+                <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST" style="display:inline-block;">
                   @csrf
-                  <input class="btn btn-danger" type="submit" value="Delete">
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                 </form>
-              </td>          
-             </tr>
-           @endforeach
+              </td>
+            </tr>
+          @endforeach
         </tbody>
-     </table>
+      </table>
     </div>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

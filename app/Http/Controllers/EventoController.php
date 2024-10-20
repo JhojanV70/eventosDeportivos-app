@@ -69,18 +69,48 @@ class EventoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit($id)
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
     {
-        //
+        // Busca el evento por ID
+        $evento = Evento::find($id);
+    
+        // Verifica si el evento existe
+        if (!$evento) {
+            return redirect()->route('eventos.index')->with('error', 'Evento no encontrado.');
+        }
+    
+        return view('eventos.edit', ['evento' => $evento]);
     }
+/**
+ * Update the specified resource in storage.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'fecha' => 'required|date',
+        'ubicacion' => 'required|string|max:255',
+        'tipo' => 'required|in:torneo,partido amistoso,maratón', // Tipos válidos
+    ]);
+
+    $evento = Evento::find($id);
+
+    $evento->nombre = $request->nombre;
+    $evento->descripcion = $request->descripcion;
+    $evento->fecha = $request->fecha;
+    $evento->ubicacion = $request->ubicacion;
+    $evento->tipo = $request->tipo;
+    $evento->save();
+
+    $eventos = DB::table('eventos')->get(); // Ajuste para obtener la tabla 'eventos'
+    return redirect()->route('eventos.index')->with('success', 'Evento actualizado con éxito.'); // Redirigir a la vista index
+}
 
     /**
      * Remove the specified resource from storage.

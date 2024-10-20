@@ -14,40 +14,44 @@
     <div class="container">
       <h1>Listado de eventos</h1>
       <a href="{{ route('eventos.create') }}" class="btn btn-success">Add Event</a>
+      
     <table class="table">
-   <thead>
-     <tr>
-     <th scope="col">Event ID</th>
-     <th scope="col">Event Name</th>
-     <th scope="col">Description</th>
-     <th scope="col">Date</th>
-     <th scope="col">Location</th>
-     <th scope="col">Type</th>
-     <th scope="col">Actions</th>
-      </tr>
-   </thead>
-    <tbody>
-      @foreach ($eventos as $evento)
-        <tr>
-          <th scope="row">{{$evento->id}}</th>
-          <td>{{ $evento->nombre }}</td>
-          <td>{{ $evento->descripcion }}</td>
-          <td>{{ $evento->fecha }}</td>
-          <td>{{ $evento->ubicacion }}</td>
-          <td>{{ $evento->tipo }}</td>
-          <td>
-          <form action="{{route('eventos.destroy',['evento'=>$evento->id])}}"
-              method="POST" style="display: inline-block">
-              @method('delete')
-              @csrf
-              <input class="btn btn-danger" type="submit" value="Delete">
-            </form>
-          </td>          
-         </tr>
-       @endforeach
-    </tbody>
- </table>
-</div>
+       <thead>
+         <tr>
+         <th scope="col">Event ID</th>
+         <th scope="col">Event Name</th>
+         <th scope="col">Description</th>
+         <th scope="col">Date</th>
+         <th scope="col">Location</th>
+         <th scope="col">Type</th>
+         <th scope="col">Actions</th>
+          </tr>
+       </thead>
+        <tbody>
+          @foreach ($eventos as $evento)
+            <tr>
+              <th scope="row">{{$evento->id}}</th>
+              <td>{{ $evento->nombre }}</td>
+              <td>{{ $evento->descripcion }}</td>
+              <td>{{ $evento->fecha }}</td>
+              <td>{{ $evento->ubicacion }}</td>
+              <td>{{ $evento->tipo }}</td>
+              <td>
+                
+                <a href="{{route('eventos.edit',['evento'=>$evento->id]) }}" class="btn btn-info">Edit</a>
+
+                <form action="{{route('eventos.destroy',['evento'=>$evento->id])}}"
+                      method="POST" style="display: inline-block">
+                  @method('delete')
+                  @csrf
+                  <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+              </td>          
+             </tr>
+           @endforeach
+        </tbody>
+     </table>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

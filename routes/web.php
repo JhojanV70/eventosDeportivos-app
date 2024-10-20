@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\EquipoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,3 +15,6 @@ Route::get('/eventos/create', [EventoController::class, 'create'])->name('evento
 Route::delete('/eventos/{evento}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 Route::put('/eventos/{evento}', [EventoController::class, 'update'])->name('eventos.update');
 Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
+
+//Rutas Equipos
+Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos.index');

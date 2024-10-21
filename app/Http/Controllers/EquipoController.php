@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class EquipoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $equipos = Equipo::all();
@@ -39,18 +35,6 @@ class EquipoController extends Controller
         return redirect()->route('equipos.index')->with('success', 'Equipo creado con éxito.');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $equipo = Equipo::find($id);
@@ -62,10 +46,6 @@ class EquipoController extends Controller
         return view('equipos.edit', ['equipo' => $equipo]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -83,17 +63,15 @@ class EquipoController extends Controller
         return redirect()->route('equipos.index')->with('success', 'Equipo actualizado con éxito.');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $equipo = Equipo::find($id);
-        $equipo->delete();
 
+        if ($equipo->participacion) {
+            return redirect()->route('equipos.index')->with('error', 'No se puede eliminar un equipo que tiene participaciones.');
+        }
+
+        $equipo->delete();
         return redirect()->route('equipos.index')->with('success', 'Equipo eliminado con éxito.');
     }
 }
-
-

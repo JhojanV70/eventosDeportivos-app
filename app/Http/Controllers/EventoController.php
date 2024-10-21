@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class EventoController extends Controller
 {
@@ -75,8 +74,12 @@ class EventoController extends Controller
     public function destroy($id)
     {
         $evento = Evento::find($id);
-        $evento->delete();
 
+        if ($evento->participacion) {
+            return redirect()->route('eventos.index')->with('error', 'No se puede eliminar un evento que tiene participaciones.');
+        }
+
+        $evento->delete();
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado con éxito.');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\ParticipacionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,3 +24,6 @@ Route::get('/equipos/create', [EquipoController::class, 'create'])->name('equipo
 Route::delete('/equipos/{evento}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
 Route::put('/equipos/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
 Route::get('/equipos/{equipo}/edit', [EquipoController::class, 'edit'])->name('equipos.edit');
+
+//Rutas Equipos
+Route::get('/participaciones', [ParticipacionController::class, 'index'])->name('participaciones.index');

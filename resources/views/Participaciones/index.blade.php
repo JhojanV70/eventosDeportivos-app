@@ -10,7 +10,7 @@
     <div class="container">
       <h1>Listado de Participaciones</h1>
       <a href="{{ route('participaciones.create') }}" class="btn btn-success">Agregar Participación</a>
-      
+      <a href="{{route('municipios.menu')}}" class="btn btn-warning">Volver</a>      
       <table class="table">
         <thead>
           <tr>
@@ -32,6 +32,11 @@
                 <td>{{ $participacion->premios ?? 'N/A' }}</td> <!-- Muestra 'N/A' si premios es null -->
                 <td>
                 <a href="{{ route('participaciones.edit', $participacion->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                <form action="{{ route('participaciones.destroy', $participacion->id) }}" method="POST" style="display:inline-block;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
                 </td>
             </tr>
         @endforeach

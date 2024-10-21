@@ -32,3 +32,6 @@ Route::get('/participaciones/create', [ParticipacionController::class, 'create']
 Route::delete('/participaciones/{participacion}', [ParticipacionController::class, 'destroy'])->name('participaciones.destroy');
 Route::put('/participaciones/{participacion}', [ParticipacionController::class, 'update'])->name('participaciones.update');
 Route::get('/participaciones/{participacion}/edit', [ParticipacionController::class, 'edit'])->name('participaciones.edit');
+
+//Menu
+Route::get('/', function () {return view('welcome');})->name('welcome');

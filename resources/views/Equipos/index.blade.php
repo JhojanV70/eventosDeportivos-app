@@ -10,7 +10,7 @@
     <div class="container">
       <h1>Listado de Equipos</h1>
       <a href="{{ route('equipos.create') }}" class="btn btn-success">Agregar Equipo</a>
-      
+      <a href="{{ route('welcome') }}" class="btn btn-warning">Menu</a>      
       <table class="table">
         <thead>
           <tr>

@@ -10,7 +10,7 @@
     <div class="container">
       <h1>Listado de Participaciones</h1>
       <a href="{{ route('participaciones.create') }}" class="btn btn-success">Agregar Participación</a>
-      <a href="{{route('municipios.menu')}}" class="btn btn-warning">Volver</a>      
+      <a href="{{ route('welcome') }}" class="btn btn-warning">Menu</a>
       <table class="table">
         <thead>
           <tr>

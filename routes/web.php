@@ -25,7 +25,9 @@ Route::delete('/equipos/{evento}', [EquipoController::class, 'destroy'])->name('
 Route::put('/equipos/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
 Route::get('/equipos/{equipo}/edit', [EquipoController::class, 'edit'])->name('equipos.edit');
 
-//Rutas Equipos
+//Rutas Participaciones
 Route::get('/participaciones', [ParticipacionController::class, 'index'])->name('participaciones.index');
 Route::post('/participaciones', [ParticipacionController::class, 'store'])->name('participaciones.store');
 Route::get('/participaciones/create', [ParticipacionController::class, 'create'])->name('participaciones.create');
+Route::put('/participaciones/{participacion}', [ParticipacionController::class, 'update'])->name('participaciones.update');
+Route::get('/participaciones/{participacion}/edit', [ParticipacionController::class, 'edit'])->name('participaciones.edit');

@@ -31,7 +31,7 @@
                 <td>{{ $participacion->resultado }}</td>
                 <td>{{ $participacion->premios ?? 'N/A' }}</td> <!-- Muestra 'N/A' si premios es null -->
                 <td>
-                    <!-- Aquí puedes agregar acciones, como editar o eliminar -->
+                <a href="{{ route('participaciones.edit', $participacion->id) }}" class="btn btn-warning btn-sm">Editar</a>
                 </td>
             </tr>
         @endforeach

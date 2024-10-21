@@ -75,7 +75,15 @@ class ParticipacionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $participacion = Participacion::find($id);    
+        $eventos = DB::table('eventos')
+        ->orderBy('nombre')
+        ->get();
+        $equipos = DB::table('equipos')
+        ->orderBy('nombre')
+        ->get();
+
+        return view('participaciones.edit', ['participacion' => $participacion, 'eventos' => $eventos, 'equipos' => $equipos]);
     }
 
     /**
@@ -83,7 +91,27 @@ class ParticipacionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $participacion = Participacion::find($id);
+
+        // Actualizar los datos de la participación
+        $participacion->evento_id = $request->input('evento_id');
+        $participacion->equipo_id = $request->input('equipo_id');
+        $participacion->resultado = $request->input('resultado');
+        $participacion->premios = $request->input('premios');
+
+        // Guardar la actualización en la base de datos
+        $participacion->save();
+
+        // Obtener todas las participaciones junto con los datos de eventos y equipos
+        $participaciones = DB::table('participaciones')
+        ->join('equipos', 'participaciones.equipo_id', '=', 'equipos.id')
+        ->join('eventos', 'participaciones.evento_id', '=', 'eventos.id')
+        ->select('participaciones.*', 'eventos.nombre as evento_nombre', 'equipos.nombre as equipo_nombre')
+        ->get();
+        // Devolver la vista de índice con todas las participaciones
+        return view('participaciones.index', ['participaciones' => $participaciones]);
+
+
     }
 
     /**

@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Listado de Participaciones</h1>
-      
+      <a href="{{ route('participaciones.create') }}" class="btn btn-success">Agregar Participación</a>
       
       <table class="table">
         <thead>

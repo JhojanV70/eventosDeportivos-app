@@ -28,7 +28,13 @@ class ParticipacionController extends Controller
      */
     public function create()
     {
-        //
+        $eventos = DB::table('eventos')
+        ->orderBy('nombre')
+        ->get();
+        $equipos = DB::table('equipos')
+        ->orderBy('nombre')
+        ->get();
+        return view('participaciones.new', ['eventos' => $eventos, 'equipos' => $equipos]);
     }
 
     /**
@@ -36,7 +42,24 @@ class ParticipacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validación de los datos
+        $request->validate([
+            'evento_id' => 'required|exists:eventos,id', // Asegúrate de que el evento exista
+            'equipo_id' => 'required|exists:equipos,id', // Asegúrate de que el equipo exista
+            'resultado' => 'required|string',
+            'premios' => 'nullable|string',
+        ]);
+
+        // Crear una nueva participación
+        $participacion = new Participacion();
+        $participacion->evento_id = $request->input('evento_id');
+        $participacion->equipo_id = $request->input('equipo_id');
+        $participacion->resultado = $request->input('resultado');
+        $participacion->premios = $request->input('premios');
+        $participacion->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('participaciones.index')->with('success', 'Participación creada exitosamente.');
     }
 
     /**

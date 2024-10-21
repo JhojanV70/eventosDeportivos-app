@@ -27,3 +27,5 @@ Route::get('/equipos/{equipo}/edit', [EquipoController::class, 'edit'])->name('e
 
 //Rutas Equipos
 Route::get('/participaciones', [ParticipacionController::class, 'index'])->name('participaciones.index');
+Route::post('/participaciones', [ParticipacionController::class, 'store'])->name('participaciones.store');
+Route::get('/participaciones/create', [ParticipacionController::class, 'create'])->name('participaciones.create');
